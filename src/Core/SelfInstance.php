@@ -14,13 +14,14 @@ abstract class SelfInstance
     public static function run(string $namespace, string $parent_class, array $classes_array = []): bool
     {
         $classes = Finder::getClassesInNamespace($namespace);
-        $class_child_params = [];
 
         if (!$classes) {
             return false;
         }
 
         foreach ($classes as $class) {
+            $class_child_params = [];
+
             if (is_subclass_of($class, $parent_class)) {
                 if (call_user_func([$class, 'isSelfInstance'])) {
 
