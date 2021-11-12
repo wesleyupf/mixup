@@ -2,8 +2,6 @@
 
 namespace UPFlex\MixUp\Core;
 
-use UPFlex\MixUp\Core\Finder;
-
 abstract class SelfInstance
 {
     /**
@@ -41,8 +39,7 @@ abstract class SelfInstance
 
                     // Check parameters
                     if (count($const_params) <= count($class_child_params)) {
-                        $child_class = new $class(...$class_child_params);
-                        return $child_class->getInstance();
+                        new $class(...$class_child_params);
                     } elseif (defined('WP_DEBUG') && true === WP_DEBUG) { // Write log
                         error_log(sprintf('%s %s', __('Parameters were not set correctly. Class:'), $class));
                     }

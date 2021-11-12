@@ -2,7 +2,7 @@
 
 namespace UPFlex\MixUp\Core;
 
-abstract class  Finder
+abstract class Finder
 {
     // Directory that contains composer.json
     const APP_ROOT = __DIR__ . '/../../../../../';
