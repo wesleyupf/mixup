@@ -4,7 +4,7 @@ namespace UPFlex\MixUp\Core;
 
 abstract class TemplateParts extends Base
 {
-    protected static string $folder;
+    protected static string $folder = '';
 
     /**
      * @param $slug
@@ -34,7 +34,7 @@ abstract class TemplateParts extends Base
     {
         $folder = substr(self::$folder, -1) === '/' ? self::$folder : sprintf('%s/', self::$folder);
         $template_dir = sprintf('%s/', $folder);
-        $located = null;
+        $located = '';
 
         foreach ((array)$template_names as $template_name) {
             if (!$template_name)
@@ -51,5 +51,13 @@ abstract class TemplateParts extends Base
         }
 
         return $located;
+    }
+
+    /**
+     * @param string $folder
+     */
+    public static function setFolder(string $folder): void
+    {
+        self::$folder = $folder;
     }
 }
