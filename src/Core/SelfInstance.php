@@ -13,7 +13,9 @@ abstract class SelfInstance
      */
     public static function run(string $namespace, string $parent_class, array $classes_array = []): bool
     {
-        $classes = Finder::getClassesInNamespace($namespace);
+        $namespaces = Finder::getClassesInNamespace($namespace);
+
+        $classes = self::filter($namespaces);
 
         if (!$classes) {
             return false;
@@ -49,5 +51,21 @@ abstract class SelfInstance
         }
 
         return true;
+    }
+
+    /**
+     * @param array $namespaces
+     * @return array
+     */
+    private static function filter(array $namespaces): array
+    {
+        $classes = [];
+
+        foreach ($namespaces as $namespace) {
+            $classes[] = Finder::getClassesInNamespace($namespace);
+        }
+
+        $classes = call_user_func('array_merge', $classes);
+        return array_filter($classes, fn($class) => class_exists($class));
     }
 }

@@ -20,11 +20,9 @@ abstract class Finder
 
             $files = scandir($namespace_dir);
 
-            $classes = array_map(function ($file) use ($namespace) {
+            return array_map(function ($file) use ($namespace) {
                 return $namespace . self::SEPARATOR . str_replace('.php', '', $file);
             }, $files);
-
-            return array_filter($classes, fn($possibleClass) => class_exists($possibleClass));
         }
 
         return [];
