@@ -52,13 +52,14 @@ abstract class SelfInstance
             if (call_user_func([$class, 'isSelfInstance'])) {
                 // Get info class
                 $reflection = new ReflectionClass($class);
-                $constructor = $reflection->getConstructor();
-                $const_params = $constructor->getParameters();
 
                 // Return in abstract
                 if ($reflection->isAbstract()) {
                     return;
                 }
+
+                $constructor = $reflection->getConstructor();
+                $const_params = $constructor->getParameters();
 
                 // Define parameters
                 foreach ($const_params as $param) {
