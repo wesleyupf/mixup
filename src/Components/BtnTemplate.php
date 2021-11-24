@@ -16,7 +16,6 @@ abstract class BtnTemplate extends Base implements IBtnTemplate
      */
     public static function params(array $args = []): void
     {
-
     }
 
     /**
