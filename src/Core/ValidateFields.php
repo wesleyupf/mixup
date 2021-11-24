@@ -1,8 +1,7 @@
 <?php
 
-namespace UPFlex\MixUp\Components;
+namespace UPFlex\MixUp\Core;
 
-use UPFlex\MixUp\Core\Base;
 use UPFlex\MixUp\Core\Interfaces\Components\IValidateFields;
 
 abstract class ValidateFields extends Base implements IValidateFields
@@ -45,7 +44,7 @@ abstract class ValidateFields extends Base implements IValidateFields
         if (!empty($values ?? null) && !empty($required ?? null)) {
             foreach ($required as $field) {
                 if (in_array('required', $field)) {
-                    if (empty($values[$field[0]] ?? null)) {
+                    if (strlen(trim($values[$field[0]] ?? null)) <= 0) {
                         return false;
                     }
                 }
@@ -65,7 +64,8 @@ abstract class ValidateFields extends Base implements IValidateFields
 
         foreach ($fields as $field) {
             if (isset($field[0])) {
-                $data[$field[0]] = self::sanitizeTypeInput($_POST[$field[0]], $field);
+                $value = $_POST[$field[0]] ?? null;
+                $data[$field[0]] = self::sanitizeTypeInput($value, $field);
             }
         }
 

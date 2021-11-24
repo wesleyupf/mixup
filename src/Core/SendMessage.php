@@ -1,6 +1,6 @@
 <?php
 
-namespace UPFlex\MixUp\Components;
+namespace UPFlex\MixUp\Core;
 
 use UPFlex\MixUp\Core\Interfaces\Components\IMessage;
 use WP_Site;

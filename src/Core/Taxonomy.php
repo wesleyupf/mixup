@@ -14,113 +14,71 @@ abstract class Taxonomy extends Base implements ITaxonomy
     private string $singular;
     private string $slug = '';
 
-    /**
-     * @return array
-     */
     public function getArgs(): array
     {
         return $this->args;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getPlural(): string
     {
         return $this->plural;
     }
 
-    /**
-     * @return array
-     */
     public function getPostTypes(): array
     {
         return $this->postTypes;
     }
 
-    /**
-     * @return string
-     */
     public function getSingular(): string
     {
         return $this->singular;
     }
 
-    /**
-     * @return string
-     */
     public function getSlug(): string
     {
         return $this->slug;
     }
 
-    /**
-     * @return bool
-     */
     public function isMale(): bool
     {
         return $this->male;
     }
 
-    /**
-     * @param array $args
-     */
     public function setArgs(array $args): void
     {
         $this->args = $args;
     }
 
-    /**
-     * @param bool $male
-     */
     public function setMale(bool $male): void
     {
         $this->male = $male;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @param string $plural
-     */
     public function setPlural(string $plural): void
     {
         $this->plural = $plural;
     }
 
-    /**
-     * @param array $postTypes
-     */
     public function setPostTypes(array $postTypes): void
     {
         $this->postTypes = $postTypes;
     }
 
-    /**
-     * @param string $singular
-     */
     public function setSingular(string $singular): void
     {
         $this->singular = $singular;
     }
 
-    /**
-     * @param string $slug
-     */
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;
@@ -128,8 +86,6 @@ abstract class Taxonomy extends Base implements ITaxonomy
 
     public function register(): void
     {
-        $custom_args = [];
-
         $labels = [
             "name" => $this->getPlural(),
             "singular_name" => $this->getSingular(),
@@ -154,7 +110,6 @@ abstract class Taxonomy extends Base implements ITaxonomy
             "back_to_items" => sprintf(__("Voltar para %s"), $this->getPlural())
         ];
 
-
         $args = [
             "label" => $this->getPlural(),
             "labels" => $labels,
@@ -165,7 +120,10 @@ abstract class Taxonomy extends Base implements ITaxonomy
             "show_in_menu" => true,
             "show_in_nav_menus" => true,
             "query_var" => true,
-            "rewrite" => ["slug" => strlen($this->getSlug()) > 0 ? $this->getSlug() : $this->getName(), "with_front" => true],
+            "rewrite" => [
+                "slug" => strlen($this->getSlug()) > 0 ? $this->getSlug() : $this->getName(),
+                "with_front" => true
+            ],
             "show_admin_column" => false,
             "show_in_rest" => true,
             "show_tagcloud" => false,

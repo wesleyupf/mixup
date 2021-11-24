@@ -2,8 +2,6 @@
 
 namespace UPFlex\MixUp\Core;
 
-use UPFlex\MixUp\Core\Base;
-
 abstract class Shortcode extends Base
 {
     private array $callback = [];

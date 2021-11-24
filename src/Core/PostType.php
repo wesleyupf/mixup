@@ -15,129 +15,81 @@ abstract class PostType extends Base implements IPostTypes
     private string $slug = '';
     private array $supports = ["title", "thumbnail"];
 
-    /**
-     * @return array
-     */
     public function getArgs(): array
     {
         return $this->args;
     }
 
-    /**
-     * @return string
-     */
     public function getIcon(): string
     {
         return $this->icon;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getPlural(): string
     {
         return $this->plural;
     }
 
-    /**
-     * @return string
-     */
     public function getSingular(): string
     {
         return $this->singular;
     }
 
-    /**
-     * @return string
-     */
     public function getSlug(): string
     {
         return $this->slug;
     }
 
-    /**
-     * @return array
-     */
     public function getSupports(): array
     {
         return $this->supports;
     }
 
-    /**
-     * @return bool
-     */
     public function isMale(): bool
     {
         return $this->male;
     }
 
-    /**
-     * @param array $args
-     */
     public function setArgs(array $args): void
     {
         $this->args = $args;
     }
 
-    /**
-     * @param string $icon
-     */
     public function setIcon(string $icon): void
     {
         $this->icon = $icon;
     }
 
-    /**
-     * @param bool $male
-     */
     public function setMale(bool $male): void
     {
         $this->male = $male;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @param string $plural
-     */
     public function setPlural(string $plural): void
     {
         $this->plural = $plural;
     }
 
-    /**
-     * @param string $singular
-     */
     public function setSingular(string $singular): void
     {
         $this->singular = $singular;
     }
 
-    /**
-     * @param string $slug
-     */
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;
     }
 
-    /**
-     * @param array $supports
-     */
     public function setSupports(array $supports): void
     {
         $this->supports = $supports;
