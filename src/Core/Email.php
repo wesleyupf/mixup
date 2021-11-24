@@ -1,10 +1,6 @@
 <?php
 
-namespace XpincEventos\Front;
-
-if (!defined('ABSPATH')) {
-    die('Você não tem permissão para acessar esta página diretamente.');
-}
+namespace UPFlex\MixUp\Core;
 
 abstract class Email
 {
@@ -26,21 +22,18 @@ abstract class Email
      * @param $subject
      * @param $body
      * @param $headers
-     * @param $response
      * @return bool[]
      */
-    public static function sendMessage($to, $subject, $body, $headers, $response): array
+    public static function sendMessage($to, $subject, $body, $headers): array
     {
         if (wp_mail($to, $subject, $body, $headers)) {
             $response = [
                 'success' => true,
             ];
-
         } else {
             $response = [
                 'error' => true,
             ];
-
         }
 
         return $response;

@@ -17,7 +17,6 @@ abstract class Finder
         $namespace_dir = self::getNamespaceDirectory($namespace);
 
         if ($namespace_dir) {
-
             $files = scandir($namespace_dir);
 
             return array_map(function ($file) use ($namespace) {
@@ -48,7 +47,6 @@ abstract class Finder
         $composerNamespaces = self::getDefinedNamespaces();
 
         if ($composerNamespaces) {
-
             $namespaceFragments = explode(self::SEPARATOR, $namespace);
             $undefinedNamespaceFragments = [];
 
@@ -56,12 +54,14 @@ abstract class Finder
                 $possibleNamespace = implode(self::SEPARATOR, $namespaceFragments) . self::SEPARATOR;
 
                 if (array_key_exists($possibleNamespace, $composerNamespaces)) {
-                    return realpath(self::APP_ROOT . $composerNamespaces[$possibleNamespace] . implode('/', $undefinedNamespaceFragments));
+                    $composer_space = self::APP_ROOT . $composerNamespaces[$possibleNamespace];
+                    $fragment = implode('/', $undefinedNamespaceFragments);
+
+                    return realpath($composer_space . $fragment);
                 }
 
                 array_unshift($undefinedNamespaceFragments, array_pop($namespaceFragments));
             }
-
         }
 
         return false;

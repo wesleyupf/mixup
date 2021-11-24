@@ -6,35 +6,19 @@ use UPFlex\MixUp\Core\Interfaces\IHooks;
 
 abstract class Hook implements IHooks
 {
-    /**
-     * @var array
-     */
     private array $hooks = [];
-
-    /**
-     * @var int
-     */
     private int $accepted_args;
-    /**
-     * @var array
-     */
     private array $callback;
-    /**
-     * @var string
-     */
     private string $name;
-    /**
-     * @var int
-     */
     private int $priority;
 
     /**
-     * @param string $name
-     * @param array $callback
+     * @param $name
+     * @param $callback
      * @param int $priority
      * @param int $accepted_args
      */
-    public function addHook(string $name, array $callback, int $priority = 10, int $accepted_args = 1): void
+    public function addHook($name, $callback, int $priority = 10, int $accepted_args = 1): void
     {
         $this->hooks = array_merge($this->hooks, [
             [

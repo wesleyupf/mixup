@@ -7,10 +7,10 @@ interface IBtnTemplate
     /**
      * @param array $args
      */
-    static function params(array $args = []): void;
+    public static function params(array $args = []): void;
 
     /**
      * @param string $filename
      */
-    static function render(string $filename): void;
+    public static function render(string $filename): void;
 }

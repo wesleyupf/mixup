@@ -2,24 +2,23 @@
 
 namespace UPFlex\MixUp\Core;
 
+use ReflectionClass;
+use ReflectionException;
+
 abstract class SelfInstance
 {
-    protected static $classes_array;
-    protected static $parent_class;
+    protected static array $classes_array;
+    protected static string $parent_class;
 
     /**
      * @param string $namespace
      * @param string $parent_class
-     * @param array $classes_array [variableNameInFunction => $class]
+     * @param array $classes_array
      * @return bool
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public static function run(string $namespace, string $parent_class, array $classes_array = []): bool
     {
-        // Variáveis
-        $classes = [];
-        $possibleClass = [];
-
         // Seta valores
         self::$classes_array = $classes_array;
         self::$parent_class = $parent_class;
@@ -43,7 +42,7 @@ abstract class SelfInstance
     /**
      * @param $class
      * @return void
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private static function execute($class): void
     {
@@ -51,11 +50,15 @@ abstract class SelfInstance
 
         if (is_subclass_of($class, self::$parent_class)) {
             if (call_user_func([$class, 'isSelfInstance'])) {
-
                 // Get info class
-                $reflection = new \ReflectionClass($class);
+                $reflection = new ReflectionClass($class);
                 $constructor = $reflection->getConstructor();
                 $const_params = $constructor->getParameters();
+
+                // Return in abstract
+                if ($reflection->isAbstract()) {
+                    return;
+                }
 
                 // Define parameters
                 foreach ($const_params as $param) {
@@ -74,11 +77,10 @@ abstract class SelfInstance
                 }
             }
         }
-
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private static function getChildClassesNamespaces($namespace): void
     {
