@@ -2,7 +2,7 @@
 
 namespace UPFlex\MixUp\Core;
 
-use UPFlex\MixUp\Core\Interfaces\Components\IValidateFields;
+use UPFlex\MixUp\Core\Interfaces\IValidateFields;
 
 abstract class ValidateFields extends Base implements IValidateFields
 {

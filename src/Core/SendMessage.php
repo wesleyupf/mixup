@@ -2,7 +2,7 @@
 
 namespace UPFlex\MixUp\Core;
 
-use UPFlex\MixUp\Core\Interfaces\Components\IMessage;
+use UPFlex\MixUp\Core\Interfaces\IMessage;
 use WP_Site;
 
 abstract class SendMessage extends ValidateFields implements IMessage
