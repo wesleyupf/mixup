@@ -4,5 +4,5 @@ namespace UPFlex\MixUp\Core\Interfaces;
 
 interface IPostTypes
 {
-    public function register(): void;
+    public static function register(): void;
 }

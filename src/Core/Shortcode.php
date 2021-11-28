@@ -4,43 +4,43 @@ namespace UPFlex\MixUp\Core;
 
 abstract class Shortcode extends Base
 {
-    private array $callback = [];
-    private string $tag;
+    private static array $callback = [];
+    private static string $tag;
 
     /**
      * @return array
      */
-    public function getCallback(): array
+    public static function getCallback(): array
     {
-        return $this->callback;
+        return self::$callback;
     }
 
     /**
      * @return string
      */
-    public function getTag(): string
+    public static function getTag(): string
     {
-        return $this->tag;
+        return self::$tag;
     }
 
-    public function run(): void
+    public static function run(): void
     {
-        add_shortcode($this->getTag(), $this->getCallback());
+        add_shortcode(self::getTag(), self::getCallback());
     }
 
     /**
      * @param array $callback
      */
-    public function setCallback(array $callback): void
+    public static function setCallback(array $callback): void
     {
-        $this->callback = $callback;
+        self::$callback = $callback;
     }
 
     /**
      * @param string $tag
      */
-    public function setTag(string $tag): void
+    public static function setTag(string $tag): void
     {
-        $this->tag = $tag;
+        self::$tag = $tag;
     }
 }

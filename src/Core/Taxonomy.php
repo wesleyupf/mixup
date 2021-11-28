@@ -6,112 +6,112 @@ use UPFlex\MixUp\Core\Interfaces\ITaxonomy;
 
 abstract class Taxonomy extends Base implements ITaxonomy
 {
-    private array $args = [];
-    private bool $male = true;
-    private string $name;
-    private string $plural;
-    private array $postTypes = [];
-    private string $singular;
-    private string $slug = '';
+    private static array $args = [];
+    private static bool $male = true;
+    private static string $name;
+    private static string $plural;
+    private static array $postTypes = [];
+    private static string $singular;
+    private static string $slug = '';
 
-    public function getArgs(): array
+    public static function getArgs(): array
     {
-        return $this->args;
+        return self::$args;
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
-        return $this->name;
+        return self::$name;
     }
 
-    public function getPlural(): string
+    public static function getPlural(): string
     {
-        return $this->plural;
+        return self::$plural;
     }
 
-    public function getPostTypes(): array
+    public static function getPostTypes(): array
     {
-        return $this->postTypes;
+        return self::$postTypes;
     }
 
-    public function getSingular(): string
+    public static function getSingular(): string
     {
-        return $this->singular;
+        return self::$singular;
     }
 
-    public function getSlug(): string
+    public static function getSlug(): string
     {
-        return $this->slug;
+        return self::$slug;
     }
 
-    public function isMale(): bool
+    public static function isMale(): bool
     {
-        return $this->male;
+        return self::$male;
     }
 
-    public function setArgs(array $args): void
+    public static function setArgs(array $args): void
     {
-        $this->args = $args;
+        self::$args = $args;
     }
 
-    public function setMale(bool $male): void
+    public static function setMale(bool $male): void
     {
-        $this->male = $male;
+        self::$male = $male;
     }
 
-    public function setName(string $name): void
+    public static function setName(string $name): void
     {
-        $this->name = $name;
+        self::$name = $name;
     }
 
-    public function setPlural(string $plural): void
+    public static function setPlural(string $plural): void
     {
-        $this->plural = $plural;
+        self::$plural = $plural;
     }
 
-    public function setPostTypes(array $postTypes): void
+    public static function setPostTypes(array $postTypes): void
     {
-        $this->postTypes = $postTypes;
+        self::$postTypes = $postTypes;
     }
 
-    public function setSingular(string $singular): void
+    public static function setSingular(string $singular): void
     {
-        $this->singular = $singular;
+        self::$singular = $singular;
     }
 
-    public function setSlug(string $slug): void
+    public static function setSlug(string $slug): void
     {
-        $this->slug = $slug;
+        self::$slug = $slug;
     }
 
-    public function register(): void
+    public static function register(): void
     {
         $labels = [
-            "name" => $this->getPlural(),
-            "singular_name" => $this->getSingular(),
-            "menu_name" => $this->getPlural(),
-            "all_items" => $this->isMale() ? sprintf(__("Todos os %s"), $this->getPlural()) : sprintf(__("Todas as %s"), $this->getPlural()),
-            "edit_item" => sprintf(__("Editar %s"), $this->getSingular()),
-            "view_item" => sprintf(__("Ver %s"), $this->getSingular()),
-            "update_item" => $this->isMale() ? sprintf(__("Atualizar nome do %s"), $this->getSingular()) : sprintf(__("Atualizar nome da %s"), $this->getSingular()),
-            "add_new_item" => $this->isMale() ? sprintf(__("Adicionar novo %s"), $this->getSingular()) : sprintf(__("Adicionar nova %s"), $this->getSingular()),
-            "new_item_name" => $this->isMale() ? sprintf(__("Novo %s"), $this->getSingular()) : sprintf(__("Nova %s"), $this->getSingular()),
-            "parent_item" => sprintf(__("%s ascendente"), $this->getSingular()),
-            "parent_item_colon" => sprintf(__("%s ascendente:"), $this->getSingular()),
-            "search_items" => sprintf(__("Pesquisar %s"), $this->getPlural()),
-            "popular_items" => sprintf(__("%s mais populares"), $this->getPlural()),
-            "separate_items_with_commas" => sprintf(__("Separe %s com vírgulas"), $this->getPlural()),
-            "add_or_remove_items" => sprintf(__("Adicionar ou excluir %s"), $this->getPlural()),
-            "choose_from_most_used" => sprintf(__("Escolher entre os termos mais usados de %s"), $this->getPlural()),
-            "not_found" => $this->isMale() ? sprintf(__("Nenhum %s encontrado"), $this->getSingular()) : sprintf(__("Nenhuma %s encontrada"), $this->getSingular()),
-            "no_terms" => $this->isMale() ? sprintf(__("Nenhum %s"), $this->getSingular()) : sprintf(__("Nenhuma %s"), $this->getSingular()),
-            "items_list_navigation" => sprintf(__("Navegação na lista de %s"), $this->getPlural()),
-            "items_list" => sprintf(__("Lista de %s"), $this->getPlural()),
-            "back_to_items" => sprintf(__("Voltar para %s"), $this->getPlural())
+            "name" => self::getPlural(),
+            "singular_name" => self::getSingular(),
+            "menu_name" => self::getPlural(),
+            "all_items" => self::isMale() ? sprintf(__("Todos os %s"), self::getPlural()) : sprintf(__("Todas as %s"), self::getPlural()),
+            "edit_item" => sprintf(__("Editar %s"), self::getSingular()),
+            "view_item" => sprintf(__("Ver %s"), self::getSingular()),
+            "update_item" => self::isMale() ? sprintf(__("Atualizar nome do %s"), self::getSingular()) : sprintf(__("Atualizar nome da %s"), self::getSingular()),
+            "add_new_item" => self::isMale() ? sprintf(__("Adicionar novo %s"), self::getSingular()) : sprintf(__("Adicionar nova %s"), self::getSingular()),
+            "new_item_name" => self::isMale() ? sprintf(__("Novo %s"), self::getSingular()) : sprintf(__("Nova %s"), self::getSingular()),
+            "parent_item" => sprintf(__("%s ascendente"), self::getSingular()),
+            "parent_item_colon" => sprintf(__("%s ascendente:"), self::getSingular()),
+            "search_items" => sprintf(__("Pesquisar %s"), self::getPlural()),
+            "popular_items" => sprintf(__("%s mais populares"), self::getPlural()),
+            "separate_items_with_commas" => sprintf(__("Separe %s com vírgulas"), self::getPlural()),
+            "add_or_remove_items" => sprintf(__("Adicionar ou excluir %s"), self::getPlural()),
+            "choose_from_most_used" => sprintf(__("Escolher entre os termos mais usados de %s"), self::getPlural()),
+            "not_found" => self::isMale() ? sprintf(__("Nenhum %s encontrado"), self::getSingular()) : sprintf(__("Nenhuma %s encontrada"), self::getSingular()),
+            "no_terms" => self::isMale() ? sprintf(__("Nenhum %s"), self::getSingular()) : sprintf(__("Nenhuma %s"), self::getSingular()),
+            "items_list_navigation" => sprintf(__("Navegação na lista de %s"), self::getPlural()),
+            "items_list" => sprintf(__("Lista de %s"), self::getPlural()),
+            "back_to_items" => sprintf(__("Voltar para %s"), self::getPlural())
         ];
 
         $args = [
-            "label" => $this->getPlural(),
+            "label" => self::getPlural(),
             "labels" => $labels,
             "public" => true,
             "publicly_queryable" => true,
@@ -121,18 +121,18 @@ abstract class Taxonomy extends Base implements ITaxonomy
             "show_in_nav_menus" => true,
             "query_var" => true,
             "rewrite" => [
-                "slug" => strlen($this->getSlug()) > 0 ? $this->getSlug() : $this->getName(),
+                "slug" => strlen(self::getSlug()) > 0 ? self::getSlug() : self::getName(),
                 "with_front" => true
             ],
             "show_admin_column" => false,
             "show_in_rest" => true,
             "show_tagcloud" => false,
-            "rest_base" => $this->getName(),
+            "rest_base" => self::getName(),
             "rest_controller_class" => "WP_REST_Terms_Controller",
             "show_in_quick_edit" => false,
             "show_in_graphql" => false,
         ];
 
-        register_taxonomy($this->getName(), $this->getPostTypes(), array_merge($args, array_filter($this->getArgs())));
+        register_taxonomy(self::getName(), self::getPostTypes(), array_merge($args, array_filter(self::getArgs())));
     }
 }
