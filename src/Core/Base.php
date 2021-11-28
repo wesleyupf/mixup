@@ -4,7 +4,7 @@ namespace UPFlex\MixUp\Core;
 
 abstract class Base
 {
-    protected static bool $instance = false;
+    protected $instance;
 
     /**
      * @return bool
@@ -14,11 +14,13 @@ abstract class Base
         return true;
     }
 
-    /**
-     * @return bool
-     */
-    public function getInstance(): bool
+    public function setInstance($instance): void
     {
-        return true;
+        $this->instance = $instance;
+    }
+
+    public function getInstance()
+    {
+        return $this->instance;
     }
 }

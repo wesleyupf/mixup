@@ -95,45 +95,48 @@ abstract class PostType extends Base implements IPostTypes
         $this->supports = $supports;
     }
 
-    public function register(): void
+    public static function register(): void
     {
+        $class = get_called_class();
+        $instance = (new $class);
+
         $labels = [
-            "name" => $this->getPlural(),
-            "singular_name" => $this->getSingular(),
-            "menu_name" => $this->getPlural(),
-            "all_items" => $this->isMale() ? sprintf(__("Todos os %s"), $this->getPlural()) : sprintf(__("Todas as %s"), $this->getPlural()),
-            "add_new" => $this->isMale() ? __("Adicionar novo") : __("Adicionar nova"),
-            "add_new_item" => $this->isMale() ? sprintf(__("Adicionar novo %s"), $this->getSingular()) : sprintf(__("Adicionar nova %s"), $this->getSingular()),
-            "edit_item" => sprintf(__("Editar %s"), $this->getSingular()),
-            "new_item" => $this->isMale() ? sprintf(__("Novo %s"), $this->getSingular()) : sprintf(__("Nova %s"), $this->getSingular()),
-            "view_item" => sprintf(__("Ver %s"), $this->getSingular()),
-            "view_items" => sprintf(__("Ver %s"), $this->getPlural()),
-            "search_items" => sprintf("Pesquisar %s", $this->getPlural()),
-            "not_found" => $this->isMale() ? sprintf(__("Nenhum %s encontrado"), $this->getSingular()) : sprintf(__("Nenhuma %s encontrada"), $this->getSingular()),
-            "not_found_in_trash" => $this->isMale() ? sprintf(__("Nenhum %s encontrado na lixeira"), $this->getSingular()) : sprintf("Nenhuma %s encontrada na lixeira", $this->getSingular()),
-            "parent" => sprintf(__("%s ascendente"), $this->getSingular()),
-            "featured_image" => $this->isMale() ? sprintf(__("Imagem destacada para esse %s"), $this->getSingular()) : sprintf(__("Imagem destacada para essa %s"), $this->getSingular()),
-            "set_featured_image" => $this->isMale() ? sprintf(__("Definir imagem destacada para esse %s"), $this->getSingular()) : sprintf(__("Definir imagem destacada para essa %s"), $this->getSingular()),
-            "remove_featured_image" => $this->isMale() ? sprintf(__("Remover imagem destacada para esse %s"), $this->getSingular()) : sprintf(__("Remover imagem destacada para essa %s"), $this->getSingular()),
-            "use_featured_image" => $this->isMale() ? sprintf(__("Usar como imagem destacada para esse %s"), $this->getSingular()) : "Usar como imagem destacada para essa {$this->getSingular()}",
-            "archives" => $this->isMale() ? sprintf(__("Arquivos do %s"), $this->getSingular()) : sprintf(__("Arquivos da %s"), $this->getSingular()),
-            "insert_into_item" => $this->isMale() ? sprintf(__("Inserir no %s"), $this->getSingular()) : sprintf(__("Inserir na %s"), $this->getSingular()),
-            "uploaded_to_this_item" => $this->isMale() ? sprintf(__("Enviar para esse %s"), $this->getSingular()) : sprintf(__("Enviar para essa %s"), $this->getSingular()),
-            "filter_items_list" => sprintf(__("Filtrar lista de %s"), $this->getPlural()),
-            "items_list_navigation" => sprintf(__("Navegação na lista de %s"), $this->getPlural()),
-            "items_list" => sprintf(__("Lista de %s"), $this->getPlural()),
-            "attributes" => sprintf(__("Atributos de %s"), $this->getPlural()),
-            "name_admin_bar" => $this->getSingular(),
-            "item_published" => $this->isMale() ? sprintf(__("%s publicado"), $this->getSingular()) : sprintf(__("%s publicada"), $this->getSingular()),
-            "item_published_privately" => $this->isMale() ? sprintf(__("%s publicado de forma privada."), $this->getSingular()) : sprintf(__("%s publicada de forma privada."), $this->getSingular()),
-            "item_reverted_to_draft" => $this->isMale() ? sprintf(__("%s revertido para rascunho."), $this->getSingular()) : sprintf(__("%s revertida para rascunho."), $this->getSingular()),
-            "item_scheduled" => $this->isMale() ? sprintf(__("%s agendado"), $this->getSingular()) : sprintf(__("%s agendada"), $this->getSingular()),
-            "item_updated" => $this->isMale() ? sprintf(__("%s atualizado."), $this->getSingular()) : sprintf(__("%s atualizada."), $this->getSingular()),
-            "parent_item_colon" => sprintf(__("%s ascendente:"), $this->getSingular()),
+            "name" => $instance->getPlural(),
+            "singular_name" => $instance->getSingular(),
+            "menu_name" => $instance->getPlural(),
+            "all_items" => $instance->isMale() ? sprintf(__("Todos os %s"), $instance->getPlural()) : sprintf(__("Todas as %s"), $instance->getPlural()),
+            "add_new" => $instance->isMale() ? __("Adicionar novo") : __("Adicionar nova"),
+            "add_new_item" => $instance->isMale() ? sprintf(__("Adicionar novo %s"), $instance->getSingular()) : sprintf(__("Adicionar nova %s"), $instance->getSingular()),
+            "edit_item" => sprintf(__("Editar %s"), $instance->getSingular()),
+            "new_item" => $instance->isMale() ? sprintf(__("Novo %s"), $instance->getSingular()) : sprintf(__("Nova %s"), $instance->getSingular()),
+            "view_item" => sprintf(__("Ver %s"), $instance->getSingular()),
+            "view_items" => sprintf(__("Ver %s"), $instance->getPlural()),
+            "search_items" => sprintf("Pesquisar %s", $instance->getPlural()),
+            "not_found" => $instance->isMale() ? sprintf(__("Nenhum %s encontrado"), $instance->getSingular()) : sprintf(__("Nenhuma %s encontrada"), $instance->getSingular()),
+            "not_found_in_trash" => $instance->isMale() ? sprintf(__("Nenhum %s encontrado na lixeira"), $instance->getSingular()) : sprintf("Nenhuma %s encontrada na lixeira", $instance->getSingular()),
+            "parent" => sprintf(__("%s ascendente"), $instance->getSingular()),
+            "featured_image" => $instance->isMale() ? sprintf(__("Imagem destacada para esse %s"), $instance->getSingular()) : sprintf(__("Imagem destacada para essa %s"), $instance->getSingular()),
+            "set_featured_image" => $instance->isMale() ? sprintf(__("Definir imagem destacada para esse %s"), $instance->getSingular()) : sprintf(__("Definir imagem destacada para essa %s"), $instance->getSingular()),
+            "remove_featured_image" => $instance->isMale() ? sprintf(__("Remover imagem destacada para esse %s"), $instance->getSingular()) : sprintf(__("Remover imagem destacada para essa %s"), $instance->getSingular()),
+            "use_featured_image" => $instance->isMale() ? sprintf(__("Usar como imagem destacada para esse %s"), $instance->getSingular()) : "Usar como imagem destacada para essa {$instance->getSingular()}",
+            "archives" => $instance->isMale() ? sprintf(__("Arquivos do %s"), $instance->getSingular()) : sprintf(__("Arquivos da %s"), $instance->getSingular()),
+            "insert_into_item" => $instance->isMale() ? sprintf(__("Inserir no %s"), $instance->getSingular()) : sprintf(__("Inserir na %s"), $instance->getSingular()),
+            "uploaded_to_this_item" => $instance->isMale() ? sprintf(__("Enviar para esse %s"), $instance->getSingular()) : sprintf(__("Enviar para essa %s"), $instance->getSingular()),
+            "filter_items_list" => sprintf(__("Filtrar lista de %s"), $instance->getPlural()),
+            "items_list_navigation" => sprintf(__("Navegação na lista de %s"), $instance->getPlural()),
+            "items_list" => sprintf(__("Lista de %s"), $instance->getPlural()),
+            "attributes" => sprintf(__("Atributos de %s"), $instance->getPlural()),
+            "name_admin_bar" => $instance->getSingular(),
+            "item_published" => $instance->isMale() ? sprintf(__("%s publicado"), $instance->getSingular()) : sprintf(__("%s publicada"), $instance->getSingular()),
+            "item_published_privately" => $instance->isMale() ? sprintf(__("%s publicado de forma privada."), $instance->getSingular()) : sprintf(__("%s publicada de forma privada."), $instance->getSingular()),
+            "item_reverted_to_draft" => $instance->isMale() ? sprintf(__("%s revertido para rascunho."), $instance->getSingular()) : sprintf(__("%s revertida para rascunho."), $instance->getSingular()),
+            "item_scheduled" => $instance->isMale() ? sprintf(__("%s agendado"), $instance->getSingular()) : sprintf(__("%s agendada"), $instance->getSingular()),
+            "item_updated" => $instance->isMale() ? sprintf(__("%s atualizado."), $instance->getSingular()) : sprintf(__("%s atualizada."), $instance->getSingular()),
+            "parent_item_colon" => sprintf(__("%s ascendente:"), $instance->getSingular()),
         ];
 
         $args = [
-            "label" => $this->getPlural(),
+            "label" => $instance->getPlural(),
             "labels" => $labels,
             "description" => "",
             "public" => true,
@@ -150,13 +153,13 @@ abstract class PostType extends Base implements IPostTypes
             "capability_type" => "post",
             "map_meta_cap" => true,
             "hierarchical" => false,
-            "rewrite" => ["slug" => strlen($this->getSlug()) > 0 ? $this->getSlug() : $this->getName(), "with_front" => true],
+            "rewrite" => ["slug" => strlen($instance->getSlug()) > 0 ? $instance->getSlug() : $instance->getName(), "with_front" => true],
             "query_var" => true,
-            "menu_icon" => $this->getIcon(),
-            "supports" => $this->getSupports(),
+            "menu_icon" => $instance->getIcon(),
+            "supports" => $instance->getSupports(),
             "show_in_graphql" => false,
         ];
 
-        register_post_type($this->getName(), array_merge($args, array_filter($this->getArgs())));
+        register_post_type($instance->getName(), array_merge($args, array_filter($instance->getArgs())));
     }
 }

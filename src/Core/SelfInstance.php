@@ -72,7 +72,7 @@ abstract class SelfInstance
                 // Check parameters
                 if (count($const_params) <= count($class_child_params)) {
                     $instance = new $class(...$class_child_params);
-                    $instance->getInstance();
+                    $instance->setInstance($instance);
                 } elseif (defined('WP_DEBUG') && true === WP_DEBUG) { // Write log
                     error_log(sprintf('%s %s', __('Parameters were not set correctly. Class:'), $class));
                 }
