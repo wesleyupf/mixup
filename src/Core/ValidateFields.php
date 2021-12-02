@@ -34,9 +34,9 @@ abstract class ValidateFields extends Base implements IValidateFields
     }
 
     /**
-     * @return bool
+     * @return array|false
      */
-    protected static function requiredFields(): bool
+    protected static function requiredFields()
     {
         $required = self::getFields();
         $values = self::sanitizeFields();
@@ -51,7 +51,7 @@ abstract class ValidateFields extends Base implements IValidateFields
             }
         }
 
-        return true;
+        return $values;
     }
 
     /**
