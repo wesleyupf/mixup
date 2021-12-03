@@ -5,23 +5,28 @@ namespace UPFlex\MixUp\Utils\Fields;
 abstract class Validate extends Sanitize
 {
     /**
-     * @return array|false
+     * @return array|bool
      */
     protected static function requiredFields()
     {
-        $required = static::getFields();
+        $fields = static::getFields();
         $values = self::sanitizeFields();
 
-        if (!empty($values ?? null) && !empty($required ?? null)) {
-            foreach ($required as $field) {
+        if (is_array($fields)) {
+
+            foreach ($fields as $field) {
+                $field = is_array($field) ? $field : [];
+
                 if (in_array('required', $field)) {
                     if (strlen(trim($values[$field[0]] ?? null)) <= 0) {
                         return false;
                     }
                 }
             }
+
+            return $values;
         }
 
-        return $values;
+        return false;
     }
 }
