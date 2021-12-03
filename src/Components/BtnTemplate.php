@@ -2,10 +2,9 @@
 
 namespace UPFlex\MixUp\Components;
 
-use UPFlex\MixUp\Components\Interfaces\IBtnTemplate;
 use UPFlex\MixUp\Core\Base;
 
-abstract class BtnTemplate extends Base implements IBtnTemplate
+abstract class BtnTemplate extends Base
 {
     protected static array $attrs = [];
     protected static string $classes = '';
@@ -14,9 +13,7 @@ abstract class BtnTemplate extends Base implements IBtnTemplate
     /**
      * @param array $args
      */
-    public static function params(array $args = []): void
-    {
-    }
+    abstract protected static function params(array $args = []): void;
 
     /**
      * @param string $filename
