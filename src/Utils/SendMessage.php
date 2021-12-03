@@ -3,7 +3,7 @@
 namespace UPFlex\MixUp\Utils;
 
 use UPFlex\MixUp\Utils\Fields\Validate;
-use UPFlex\MixUp\Core\Interfaces\IMessage;
+use UPFlex\MixUp\Utils\Interfaces\IMessage;
 use UPFlex\MixUp\Core\Traits\Response;
 use WP_Site;
 

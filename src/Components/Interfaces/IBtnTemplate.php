@@ -1,6 +1,6 @@
 <?php
 
-namespace UPFlex\MixUp\Core\Interfaces\Components;
+namespace UPFlex\MixUp\Components\Interfaces;
 
 interface IBtnTemplate
 {

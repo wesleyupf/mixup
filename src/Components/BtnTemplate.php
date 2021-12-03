@@ -2,8 +2,8 @@
 
 namespace UPFlex\MixUp\Components;
 
+use UPFlex\MixUp\Components\Interfaces\IBtnTemplate;
 use UPFlex\MixUp\Core\Base;
-use UPFlex\MixUp\Core\Interfaces\Components\IBtnTemplate;
 
 abstract class BtnTemplate extends Base implements IBtnTemplate
 {

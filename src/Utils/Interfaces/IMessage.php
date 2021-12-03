@@ -1,6 +1,6 @@
 <?php
 
-namespace UPFlex\MixUp\Core\Interfaces;
+namespace UPFlex\MixUp\Utils\Interfaces;
 
 interface IMessage
 {
