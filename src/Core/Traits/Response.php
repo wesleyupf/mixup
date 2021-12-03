@@ -1,20 +1,12 @@
 <?php
 
-namespace UPFlex\MixUp\Core;
+namespace UPFlex\MixUp\Core\Traits;
 
-use UPFlex\MixUp\Core\Interfaces\IMessage;
-use WP_Site;
-
-abstract class SendMessage extends ValidateFields implements IMessage
+trait Response
 {
-    protected static bool $error = true;
     protected static string $message = '';
     protected static array $response = [];
-
-    public static function getFields(): array
-    {
-        return [];
-    }
+    protected static bool $success = false;
 
     /**
      * @return array
@@ -23,31 +15,12 @@ abstract class SendMessage extends ValidateFields implements IMessage
     {
         if (!self::$response) {
             self::$response = [
-                'error' => self::$error,
+                'success' => self::$success,
                 'message' => self::$message,
             ];
         }
 
         return self::$response;
-    }
-
-    /**
-     * @return array
-     */
-    public static function send(): array
-    {
-        return self::sanitizeFields();
-    }
-
-    /**
-     * @param $fields
-     * @return false|WP_Site
-     */
-    public static function sendEmail($fields)
-    {
-        global $blog_id;
-
-        return get_blog_details(['blog_id' => $blog_id]);
     }
 
     /**

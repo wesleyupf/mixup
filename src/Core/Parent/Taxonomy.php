@@ -1,8 +1,9 @@
 <?php
 
-namespace UPFlex\MixUp\Core;
+namespace UPFlex\MixUp\Core\Parent;
 
 use ReflectionClass;
+use UPFlex\MixUp\Core\Base;
 use UPFlex\MixUp\Core\Interfaces\ITaxonomy;
 
 abstract class Taxonomy extends Base implements ITaxonomy
@@ -137,6 +138,10 @@ abstract class Taxonomy extends Base implements ITaxonomy
             "show_in_graphql" => false,
         ];
 
-        register_taxonomy($instance->getName(), $instance->getPostTypes(), array_merge($args, array_filter($instance->getArgs())));
+        register_taxonomy(
+            $instance->getName(),
+            $instance->getPostTypes(),
+            array_merge($args, array_filter($instance->getArgs()))
+        );
     }
 }

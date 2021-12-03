@@ -1,7 +1,8 @@
 <?php
 
-namespace UPFlex\MixUp\Core;
+namespace UPFlex\MixUp\Core\Parent;
 
+use UPFlex\MixUp\Core\Base;
 use UPFlex\MixUp\Core\Interfaces\IPostTypes;
 
 abstract class PostType extends Base implements IPostTypes

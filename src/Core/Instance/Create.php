@@ -1,11 +1,11 @@
 <?php
 
-namespace UPFlex\MixUp\Core;
+namespace UPFlex\MixUp\Core\Instance;
 
 use ReflectionClass;
 use ReflectionException;
 
-abstract class SelfInstance
+abstract class Create
 {
     protected static array $classes_array;
     protected static string $parent_class;
@@ -33,7 +33,7 @@ abstract class SelfInstance
         // Pega todas as classes
         foreach ($namespaces as $namespace) {
             self::execute($namespace);
-            self::getChildClassesNamespaces($namespace);
+            self::getChildClasses($namespace);
         }
 
         return true;
@@ -41,12 +41,13 @@ abstract class SelfInstance
 
     /**
      * @param $class
-     * @return void
+     * @return array
      * @throws ReflectionException
      */
-    private static function execute($class): void
+    protected static function execute($class): array
     {
         $class_child_params = [];
+        $class_instanceds = [];
 
         if (is_subclass_of($class, self::$parent_class)) {
             if (call_user_func([$class, 'isSelfInstance'])) {
@@ -55,7 +56,7 @@ abstract class SelfInstance
 
                 // Return in abstract
                 if ($reflection->isAbstract()) {
-                    return;
+                    return [];
                 }
 
                 $constructor = $reflection->getConstructor();
@@ -72,18 +73,20 @@ abstract class SelfInstance
                 // Check parameters
                 if (count($const_params) <= count($class_child_params)) {
                     $instance = new $class(...$class_child_params);
-                    $instance->setInstance($instance);
+                    $class_instanceds[] = $instance->getInstance();
                 } elseif (defined('WP_DEBUG') && true === WP_DEBUG) { // Write log
                     error_log(sprintf('%s %s', __('Parameters were not set correctly. Class:'), $class));
                 }
             }
         }
+
+        return $class_instanceds;
     }
 
     /**
      * @throws ReflectionException
      */
-    private static function getChildClassesNamespaces($namespace): void
+    private static function getChildClasses($namespace): void
     {
         $classes = Finder::getClassesInNamespace($namespace);
         if (!$classes) {

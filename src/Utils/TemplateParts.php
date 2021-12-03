@@ -1,6 +1,8 @@
 <?php
 
-namespace UPFlex\MixUp\Core;
+namespace UPFlex\MixUp\Utils;
+
+use UPFlex\MixUp\Core\Base;
 
 abstract class TemplateParts extends Base
 {
@@ -20,18 +22,23 @@ abstract class TemplateParts extends Base
 
         $templates[] = sprintf("%s.php", $slug);
 
-        self::getPath($templates, true, false, $args);
+        self::getPath($templates, ['load' => true, 'require_once' => false], $args);
     }
 
     /**
      * @param $template_names
-     * @param false $load
-     * @param bool $require_once
+     * @param array $options
      * @param array $args
      * @return string
      */
-    public static function getPath($template_names, bool $load = false, bool $require_once = true, array $args = []): string
+    protected static function getPath($template_names, array $options, array $args = []): string
     {
+        $options = array_merge([
+            'args' => [],
+            'load' => false,
+            'require_once' => true,
+        ], $options);
+
         if (substr(self::$folder, -1) === '/') {
             $folder = self::$folder;
         } else {
@@ -41,19 +48,21 @@ abstract class TemplateParts extends Base
         $template_dir = sprintf('%s/', $folder);
         $located = '';
 
-        foreach ((array)$template_names as $template_name) {
-            if (!$template_name) {
-                continue;
-            }
+        if (is_array($template_names)) {
+            foreach ((array)$template_names as $template_name) {
+                if (!$template_name) {
+                    continue;
+                }
 
-            if (file_exists($template_dir . $template_name)) {
-                $located = $template_dir . $template_name;
-                break;
+                if (file_exists($template_dir . $template_name)) {
+                    $located = $template_dir . $template_name;
+                    break;
+                }
             }
         }
 
-        if ($load && '' != $located) {
-            load_template($located, $require_once, $args);
+        if ((bool)$options['load'] && '' != $located) {
+            load_template($located, (bool)$options['require_once'], $args);
         }
 
         return $located;

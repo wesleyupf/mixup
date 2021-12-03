@@ -1,6 +1,8 @@
 <?php
 
-namespace UPFlex\MixUp\Core;
+namespace UPFlex\MixUp\Core\Parent;
+
+use UPFlex\MixUp\Core\Base;
 
 abstract class Shortcode extends Base
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace UPFlex\MixUp\Core;
+namespace UPFlex\MixUp\Utils;
 
 abstract class Email
 {
@@ -24,7 +24,7 @@ abstract class Email
      * @param $headers
      * @return bool[]
      */
-    public static function sendMessage($to, $subject, $body, $headers): array
+    public static function send($to, $subject, $body, $headers): array
     {
         if (wp_mail($to, $subject, $body, $headers)) {
             $response = [
