@@ -7,24 +7,25 @@ use ReflectionException;
 
 abstract class Create
 {
-    protected static array $classes_array;
+    protected static array $params;
     protected static string $parent_class;
 
     /**
      * @param string $namespace
      * @param string $parent_class
-     * @param array $classes_array
+     * @param array $params
+     * @param string $dir
      * @return bool
      * @throws ReflectionException
      */
-    public static function run(string $namespace, string $parent_class, array $classes_array = []): bool
+    public static function run(string $namespace, string $parent_class, array $params = [], string $dir = ''): bool
     {
         // Seta valores
-        self::$classes_array = $classes_array;
+        self::$params = $params;
         self::$parent_class = $parent_class;
 
         // Pega todos os namespaces
-        $namespaces = Finder::getClassesInNamespace($namespace);
+        $namespaces = Finder::getClassesInNamespace($namespace, $dir);
 
         if (!$namespaces) {
             return false;
@@ -64,7 +65,7 @@ abstract class Create
 
                 // Define parameters
                 foreach ($const_params as $param) {
-                    $class_child_params[] = self::$classes_array[$param->name] ?? null;
+                    $class_child_params[] = self::$params[$param->name] ?? null;
                 }
 
                 // Filter

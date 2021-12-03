@@ -8,12 +8,19 @@ abstract class Finder
     const APP_ROOT = __DIR__ . '/../../../../../';
     const SEPARATOR = '\\';
 
+    protected static string $base_directory = self::APP_ROOT;
+
     /**
      * @param $namespace
+     * @param string $base_directory
      * @return array
      */
-    public static function getClassesInNamespace($namespace): array
+    public static function getClassesInNamespace($namespace, string $base_directory = ''): array
     {
+        if (!empty($base_directory)) {
+            self::$base_directory = substr($base_directory, -1) === '/' ? $base_directory : "$base_directory/";
+        }
+
         $namespace_dir = self::getNamespaceDirectory($namespace);
 
         if ($namespace_dir) {
@@ -30,9 +37,9 @@ abstract class Finder
     /**
      * @return array
      */
-    private static function getDefinedNamespaces(): array
+    protected static function getDefinedNamespaces(): array
     {
-        $directory = self::APP_ROOT . 'composer.json';
+        $directory = self::$base_directory . 'composer.json';
         $config = json_decode(file_get_contents($directory), true);
 
         return $config['autoload']['psr-4'] ?? [];

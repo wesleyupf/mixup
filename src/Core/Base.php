@@ -5,11 +5,12 @@ namespace UPFlex\MixUp\Core;
 abstract class Base
 {
     /**
+     * @param bool $authorized
      * @return bool
      */
-    public static function isSelfInstance(): bool
+    public static function isSelfInstance(bool $authorized = true): bool
     {
-        return true;
+        return $authorized;
     }
 
     public function getInstance(): string
