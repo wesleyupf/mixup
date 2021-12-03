@@ -61,7 +61,7 @@ abstract class Finder
                 $possibleNamespace = implode(self::SEPARATOR, $fragments) . self::SEPARATOR;
 
                 if (array_key_exists($possibleNamespace, $namespaces)) {
-                    $space = self::APP_ROOT . $namespaces[$possibleNamespace];
+                    $space = self::$base_directory . $namespaces[$possibleNamespace];
                     $fragment = implode('/', $undefinedFragments);
 
                     return realpath($space . $fragment);
