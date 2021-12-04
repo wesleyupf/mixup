@@ -6,8 +6,8 @@ use UPFlex\MixUp\Core\Base;
 
 abstract class Shortcode extends Base
 {
-    private array $callback = [];
-    private string $tag;
+    protected array $callback = [];
+    protected string $tag;
 
     /**
      * @return array

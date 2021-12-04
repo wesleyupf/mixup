@@ -7,14 +7,14 @@ use UPFlex\MixUp\Core\Interfaces\IPostTypes;
 
 abstract class PostType extends Base implements IPostTypes
 {
-    private array $args = [];
-    private string $icon = '';
-    private bool $male = true;
-    private string $name;
-    private string $plural;
-    private string $singular;
-    private string $slug = '';
-    private array $supports = ["title", "thumbnail"];
+    protected array $args = [];
+    protected string $icon = '';
+    protected bool $male = true;
+    protected string $name;
+    protected string $plural;
+    protected string $singular;
+    protected string $slug = '';
+    protected array $supports = ["title", "thumbnail"];
 
     public function getArgs(): array
     {

@@ -47,7 +47,7 @@ abstract class Finder
      * @param $namespace
      * @return string
      */
-    private static function getNamespaceDirectory($namespace): string
+    protected static function getNamespaceDirectory($namespace): string
     {
         $undefinedFragments = [];
 
@@ -73,7 +73,7 @@ abstract class Finder
      * @param array $undefinedFragments
      * @return false|string
      */
-    private static function getPathInFragments(&$fragments, array &$undefinedFragments)
+    protected static function getPathInFragments(&$fragments, array &$undefinedFragments)
     {
         $namespaces = self::getDefinedNamespaces();
 

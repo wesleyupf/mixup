@@ -8,13 +8,13 @@ use UPFlex\MixUp\Core\Interfaces\ITaxonomy;
 
 abstract class Taxonomy extends Base implements ITaxonomy
 {
-    private array $args = [];
-    private bool $male = true;
-    private string $name;
-    private string $plural;
-    private array $postTypes = [];
-    private string $singular;
-    private string $slug = '';
+    protected array $args = [];
+    protected bool $male = true;
+    protected string $name;
+    protected string $plural;
+    protected array $postTypes = [];
+    protected string $singular;
+    protected string $slug = '';
 
     public function getArgs(): array
     {
