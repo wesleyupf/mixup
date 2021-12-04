@@ -2,88 +2,24 @@
 
 namespace UPFlex\MixUp\Core\Parent;
 
-use ReflectionClass;
 use UPFlex\MixUp\Core\Base;
 use UPFlex\MixUp\Core\Interfaces\ITaxonomy;
+use UPFlex\MixUp\Core\Traits\GroupingType;
 
 abstract class Taxonomy extends Base implements ITaxonomy
 {
-    protected array $args = [];
-    protected bool $male = true;
-    protected string $name;
-    protected string $plural;
+    use GroupingType;
+
     protected array $postTypes = [];
-    protected string $singular;
-    protected string $slug = '';
-
-    public function getArgs(): array
-    {
-        return $this->args;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getPlural(): string
-    {
-        return $this->plural;
-    }
 
     public function getPostTypes(): array
     {
         return $this->postTypes;
     }
 
-    public function getSingular(): string
-    {
-        return $this->singular;
-    }
-
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    public function isMale(): bool
-    {
-        return $this->male;
-    }
-
-    public function setArgs(array $args): void
-    {
-        $this->args = $args;
-    }
-
-    public function setMale(bool $male): void
-    {
-        $this->male = $male;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function setPlural(string $plural): void
-    {
-        $this->plural = $plural;
-    }
-
     public function setPostTypes(array $postTypes): void
     {
         $this->postTypes = $postTypes;
-    }
-
-    public function setSingular(string $singular): void
-    {
-        $this->singular = $singular;
-    }
-
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
     }
 
     public static function register(): void
