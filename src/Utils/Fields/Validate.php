@@ -2,18 +2,19 @@
 
 namespace UPFlex\MixUp\Utils\Fields;
 
-abstract class Validate extends Sanitize
+trait Validate
 {
+    use Sanitize;
+
     /**
      * @return array|bool
      */
-    protected static function requiredFields()
+    protected static function getFieldsValidated()
     {
         $fields = static::getFields();
         $values = self::sanitizeFields();
 
-        if (is_array($fields)) {
-
+        if ($fields) {
             foreach ($fields as $field) {
                 $field = is_array($field) ? $field : [];
 

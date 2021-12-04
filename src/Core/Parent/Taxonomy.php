@@ -4,7 +4,7 @@ namespace UPFlex\MixUp\Core\Parent;
 
 use UPFlex\MixUp\Core\Base;
 use UPFlex\MixUp\Core\Interfaces\ITaxonomy;
-use UPFlex\MixUp\Core\Traits\GroupingType;
+use UPFlex\MixUp\Utils\GroupingType;
 
 abstract class Taxonomy extends Base implements ITaxonomy
 {

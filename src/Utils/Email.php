@@ -2,8 +2,12 @@
 
 namespace UPFlex\MixUp\Utils;
 
-abstract class Email
+use UPFlex\MixUp\Utils\Response;
+
+trait Email
 {
+    use Response;
+
     /**
      * @param string $template
      * @param string|null $name
@@ -22,20 +26,14 @@ abstract class Email
      * @param $subject
      * @param $body
      * @param $headers
-     * @return bool[]
+     * @return bool
      */
-    public static function send($to, $subject, $body, $headers): array
+    public static function sendEmail($to, $subject, $body, $headers): bool
     {
         if (wp_mail($to, $subject, $body, $headers)) {
-            $response = [
-                'success' => true,
-            ];
-        } else {
-            $response = [
-                'error' => true,
-            ];
+            self::$success = true;
         }
 
-        return $response;
+        return self::$success;
     }
 }

@@ -2,9 +2,7 @@
 
 namespace UPFlex\MixUp\Utils;
 
-use UPFlex\MixUp\Core\Base;
-
-abstract class TemplateParts extends Base
+trait TemplateParts
 {
     protected static string $folder = '';
 

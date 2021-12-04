@@ -2,10 +2,9 @@
 
 namespace UPFlex\MixUp\Utils\Fields;
 
-use UPFlex\MixUp\Core\Base;
-use UPFlex\MixUp\Core\Traits\Response;
+use UPFlex\MixUp\Utils\Response;
 
-abstract class Sanitize extends Base
+trait Sanitize
 {
     use Response;
 

@@ -2,9 +2,7 @@
 
 namespace UPFlex\MixUp\Components;
 
-use UPFlex\MixUp\Core\Base;
-
-abstract class BtnTemplate extends Base
+trait BtnTemplate
 {
     protected static array $attrs = [];
     protected static string $classes = '';

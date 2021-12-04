@@ -1,6 +1,6 @@
 <?php
 
-namespace UPFlex\MixUp\Core\Traits;
+namespace UPFlex\MixUp\Utils;
 
 trait Response
 {
