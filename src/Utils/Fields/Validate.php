@@ -97,8 +97,6 @@ trait Validate
      */
     protected static function setalerts($field, $item): void
     {
-        var_dump($field);
-        var_dump($item);
         self::$response['alerts'][] = [
             'key' => $field,
             'type' => $item,
