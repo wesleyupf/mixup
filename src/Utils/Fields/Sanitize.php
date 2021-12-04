@@ -9,10 +9,8 @@ trait Sanitize
     use Response;
 
     /**
-     * @return string[][]
+     * @return array
      */
-    abstract protected static function setFields(): array;
-
     protected static function getFields(): array
     {
         $class = get_called_class();
@@ -20,39 +18,51 @@ trait Sanitize
     }
 
     /**
+     * @return string[][]
+     */
+    abstract protected static function setFields(): array;
+
+    /**
+     * @param string $request
      * @return array
      */
-    protected static function sanitizeFields(): array
+    protected static function sanitizeFields(string $request = 'post'): array
     {
+        $allow_methods = ['get' => $_GET, 'post' => $_POST];
+
         $fields = self::getFields();
         $data = [];
 
-        foreach ($fields as $field) {
-            if (isset($field[0])) {
-                $method = in_array('GET', is_array($field) ? $field : []);
-                $method = $method || in_array('GET', $fields);
+        foreach ($fields as $key => $expected) {
+            $method = array_key_exists($request, $allow_methods)
+                ? $allow_methods[$request]
+                : $allow_methods['post'];
 
-                $value = $method ? $_GET[$field[0]] ?? '' : $_POST[$field[0]] ?? '';
-
-                $data[$field[0]] = $value ? self::sanitizeTypeInput($value, $field) : null;
-            }
+            $value = $method[$key] ?? null;
+            $data[$key] = $value ? self::sanitizeTypeInput($value, $expected, $key) : null;
         }
 
         return array_filter($data);
     }
 
-    protected static function sanitizeTypeInput(string $value, array $args = []): string
+    /**
+     * @param string $value
+     * @param $args
+     * @param string $key
+     * @return string
+     */
+    protected static function sanitizeTypeInput(string $value, $args, string $key = ''): string
     {
-        if ($value) {
-            if (in_array('email', $args)) {
-                $value = sanitize_email($value);
-            } elseif (in_array('password', $args)) {
-                return $value;
-            } else {
-                $value = sanitize_text_field($value);
-            }
+        if (strlen(trim($value)) <= 0) {
+            return '';
         }
 
-        return strlen($value) > 0 ? $value : '';
+        if (strpos($args, 'email') !== false || strpos($key, 'email') !== false) {
+            $value = sanitize_email($value);
+        } elseif (strpos($args, 'password') === false) {
+            $value = sanitize_text_field($value);
+        }
+
+        return $value;
     }
 }
