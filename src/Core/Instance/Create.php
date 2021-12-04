@@ -48,7 +48,7 @@ abstract class Create
     protected static function execute($class): array
     {
         $class_child_params = [];
-        $class_instanceds = [];
+        $class_instances = [];
 
         if (is_subclass_of($class, self::$parent_class)) {
             if (call_user_func([$class, 'isSelfInstance'])) {
@@ -74,14 +74,14 @@ abstract class Create
                 // Check parameters
                 if (count($const_params) <= count($class_child_params)) {
                     $instance = new $class(...$class_child_params);
-                    $class_instanceds[] = $instance->getInstance();
-                } elseif (defined('WP_DEBUG') && true === WP_DEBUG) { // Write log
+                    $class_instances[] = $instance->isSelfInstance() ? $instance : [];
+                } elseif (defined('WP_DEBUG') && true === WP_DEBUG) {
                     error_log(sprintf('%s %s', __('Parameters were not set correctly. Class:'), $class));
                 }
             }
         }
 
-        return $class_instanceds;
+        return array_filter($class_instances);
     }
 
     /**

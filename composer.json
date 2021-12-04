@@ -16,6 +16,7 @@
     }
   },
   "require-dev": {
-    "pestphp/pest": "^1.21"
+    "pestphp/pest": "^1.21",
+    "10up/wp_mock": "0.4.2"
   }
 }
