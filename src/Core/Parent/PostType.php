@@ -10,14 +10,8 @@ abstract class PostType extends Base implements IPostTypes
 {
     use GroupingType;
 
-    public static string $cp_name = '';
-    protected string $icon = '';
-    protected array $supports = ["title", "thumbnail"];
-
-    public function getIcon(): string
-    {
-        return $this->icon;
-    }
+    protected static string $icon = '';
+    protected static array $supports = ["title", "thumbnail"];
 
     /**
      * @param $instance
@@ -26,88 +20,83 @@ abstract class PostType extends Base implements IPostTypes
     public static function getLabels($instance): array
     {
         return [
-            "name" => $instance->getPlural(),
-            "singular_name" => $instance->getSingular(),
-            "menu_name" => $instance->getPlural(),
-            "all_items" => $instance->isMale()
-                ? sprintf(__("Todos os %s"), $instance->getPlural())
-                : sprintf(__("Todas as %s"), $instance->getPlural()),
-            "add_new" => $instance->isMale() ? __("Adicionar novo") : __("Adicionar nova"),
-            "add_new_item" => $instance->isMale()
-                ? sprintf(__("Adicionar novo %s"), $instance->getSingular())
-                : sprintf(__("Adicionar nova %s"), $instance->getSingular()),
-            "edit_item" => sprintf(__("Editar %s"), $instance->getSingular()),
-            "new_item" => $instance->isMale()
-                ? sprintf(__("Novo %s"), $instance->getSingular())
-                : sprintf(__("Nova %s"), $instance->getSingular()),
-            "view_item" => sprintf(__("Ver %s"), $instance->getSingular()),
-            "view_items" => sprintf(__("Ver %s"), $instance->getPlural()),
-            "search_items" => sprintf("Pesquisar %s", $instance->getPlural()),
-            "not_found" => $instance->isMale()
-                ? sprintf(__("Nenhum %s encontrado"), $instance->getSingular())
-                : sprintf(__("Nenhuma %s encontrada"), $instance->getSingular()),
-            "not_found_in_trash" => $instance->isMale()
-                ? sprintf(__("Nenhum %s encontrado na lixeira"), $instance->getSingular())
-                : sprintf("Nenhuma %s encontrada na lixeira", $instance->getSingular()),
-            "parent" => sprintf(__("%s ascendente"), $instance->getSingular()),
-            "featured_image" => $instance->isMale()
-                ? sprintf(__("Imagem destacada para esse %s"), $instance->getSingular())
-                : sprintf(__("Imagem destacada para essa %s"), $instance->getSingular()),
-            "set_featured_image" => $instance->isMale()
-                ? sprintf(__("Definir imagem destacada para esse %s"), $instance->getSingular())
-                : sprintf(__("Definir imagem destacada para essa %s"), $instance->getSingular()),
-            "remove_featured_image" => $instance->isMale()
-                ? sprintf(__("Remover imagem destacada para esse %s"), $instance->getSingular())
-                : sprintf(__("Remover imagem destacada para essa %s"), $instance->getSingular()),
-            "use_featured_image" => $instance->isMale()
-                ? sprintf(__("Usar como imagem destacada para esse %s"), $instance->getSingular())
-                : "Usar como imagem destacada para essa {$instance->getSingular()}",
-            "archives" => $instance->isMale()
-                ? sprintf(__("Arquivos do %s"), $instance->getSingular())
-                : sprintf(__("Arquivos da %s"), $instance->getSingular()),
-            "insert_into_item" => $instance->isMale()
-                ? sprintf(__("Inserir no %s"), $instance->getSingular())
-                : sprintf(__("Inserir na %s"), $instance->getSingular()),
-            "uploaded_to_this_item" => $instance->isMale()
-                ? sprintf(__("Enviar para esse %s"), $instance->getSingular())
-                : sprintf(__("Enviar para essa %s"), $instance->getSingular()),
-            "filter_items_list" => sprintf(__("Filtrar lista de %s"), $instance->getPlural()),
-            "items_list_navigation" => sprintf(__("Navegação na lista de %s"), $instance->getPlural()),
-            "items_list" => sprintf(__("Lista de %s"), $instance->getPlural()),
-            "attributes" => sprintf(__("Atributos de %s"), $instance->getPlural()),
-            "name_admin_bar" => $instance->getSingular(),
-            "item_published" => $instance->isMale()
-                ? sprintf(__("%s publicado"), $instance->getSingular())
-                : sprintf(__("%s publicada"), $instance->getSingular()),
-            "item_published_privately" => $instance->isMale()
-                ? sprintf(__("%s publicado de forma privada."), $instance->getSingular())
-                : sprintf(__("%s publicada de forma privada."), $instance->getSingular()),
-            "item_reverted_to_draft" => $instance->isMale()
-                ? sprintf(__("%s revertido para rascunho."), $instance->getSingular())
-                : sprintf(__("%s revertida para rascunho."), $instance->getSingular()),
-            "item_scheduled" => $instance->isMale()
-                ? sprintf(__("%s agendado"), $instance->getSingular())
-                : sprintf(__("%s agendada"), $instance->getSingular()),
-            "item_updated" => $instance->isMale()
-                ? sprintf(__("%s atualizado."), $instance->getSingular())
-                : sprintf(__("%s atualizada."), $instance->getSingular()),
-            "parent_item_colon" => sprintf(__("%s ascendente:"), $instance->getSingular()),
+            "name" => $instance::$plural,
+            "singular_name" => $instance::$singular,
+            "menu_name" => $instance::$plural,
+            "all_items" => $instance::$male
+                ? sprintf(__("Todos os %s"), $instance::$plural)
+                : sprintf(__("Todas as %s"), $instance::$plural),
+            "add_new" => $instance::$male ? __("Adicionar novo") : __("Adicionar nova"),
+            "add_new_item" => $instance::$male
+                ? sprintf(__("Adicionar novo %s"), $instance::$singular)
+                : sprintf(__("Adicionar nova %s"), $instance::$singular),
+            "edit_item" => sprintf(__("Editar %s"), $instance::$singular),
+            "new_item" => $instance::$male
+                ? sprintf(__("Novo %s"), $instance::$singular)
+                : sprintf(__("Nova %s"), $instance::$singular),
+            "view_item" => sprintf(__("Ver %s"), $instance::$singular),
+            "view_items" => sprintf(__("Ver %s"), $instance::$plural),
+            "search_items" => sprintf("Pesquisar %s", $instance::$plural),
+            "not_found" => $instance::$male
+                ? sprintf(__("Nenhum %s encontrado"), $instance::$singular)
+                : sprintf(__("Nenhuma %s encontrada"), $instance::$singular),
+            "not_found_in_trash" => $instance::$male
+                ? sprintf(__("Nenhum %s encontrado na lixeira"), $instance::$singular)
+                : sprintf("Nenhuma %s encontrada na lixeira", $instance::$singular),
+            "parent" => sprintf(__("%s ascendente"), $instance::$singular),
+            "featured_image" => $instance::$male
+                ? sprintf(__("Imagem destacada para esse %s"), $instance::$singular)
+                : sprintf(__("Imagem destacada para essa %s"), $instance::$singular),
+            "set_featured_image" => $instance::$male
+                ? sprintf(__("Definir imagem destacada para esse %s"), $instance::$singular)
+                : sprintf(__("Definir imagem destacada para essa %s"), $instance::$singular),
+            "remove_featured_image" => $instance::$male
+                ? sprintf(__("Remover imagem destacada para esse %s"), $instance::$singular)
+                : sprintf(__("Remover imagem destacada para essa %s"), $instance::$singular),
+            "use_featured_image" => $instance::$male
+                ? sprintf(__("Usar como imagem destacada para esse %s"), $instance::$singular)
+                : "Usar como imagem destacada para essa {$instance::$singular}",
+            "archives" => $instance::$male
+                ? sprintf(__("Arquivos do %s"), $instance::$singular)
+                : sprintf(__("Arquivos da %s"), $instance::$singular),
+            "insert_into_item" => $instance::$male
+                ? sprintf(__("Inserir no %s"), $instance::$singular)
+                : sprintf(__("Inserir na %s"), $instance::$singular),
+            "uploaded_to_this_item" => $instance::$male
+                ? sprintf(__("Enviar para esse %s"), $instance::$singular)
+                : sprintf(__("Enviar para essa %s"), $instance::$singular),
+            "filter_items_list" => sprintf(__("Filtrar lista de %s"), $instance::$plural),
+            "items_list_navigation" => sprintf(__("Navegação na lista de %s"), $instance::$plural),
+            "items_list" => sprintf(__("Lista de %s"), $instance::$plural),
+            "attributes" => sprintf(__("Atributos de %s"), $instance::$plural),
+            "name_admin_bar" => $instance::$singular,
+            "item_published" => $instance::$male
+                ? sprintf(__("%s publicado"), $instance::$singular)
+                : sprintf(__("%s publicada"), $instance::$singular),
+            "item_published_privately" => $instance::$male
+                ? sprintf(__("%s publicado de forma privada."), $instance::$singular)
+                : sprintf(__("%s publicada de forma privada."), $instance::$singular),
+            "item_reverted_to_draft" => $instance::$male
+                ? sprintf(__("%s revertido para rascunho."), $instance::$singular)
+                : sprintf(__("%s revertida para rascunho."), $instance::$singular),
+            "item_scheduled" => $instance::$male
+                ? sprintf(__("%s agendado"), $instance::$singular)
+                : sprintf(__("%s agendada"), $instance::$singular),
+            "item_updated" => $instance::$male
+                ? sprintf(__("%s atualizado."), $instance::$singular)
+                : sprintf(__("%s atualizada."), $instance::$singular),
+            "parent_item_colon" => sprintf(__("%s ascendente:"), $instance::$singular),
         ];
     }
 
-    public function getSupports(): array
+    public static function setIcon(string $icon): void
     {
-        return $this->supports;
+        self::$icon = $icon;
     }
 
-    public function setIcon(string $icon): void
+    public static function setSupports(array $supports): void
     {
-        $this->icon = $icon;
-    }
-
-    public function setSupports(array $supports): void
-    {
-        $this->supports = $supports;
+        self::$supports = $supports;
     }
 
     public static function register(): void
@@ -116,7 +105,7 @@ abstract class PostType extends Base implements IPostTypes
         $instance = (new $class);
 
         $args = [
-            "label" => $instance->getPlural(),
+            "label" => $instance::$plural,
             "labels" => self::getLabels($instance),
             "description" => "",
             "public" => true,
@@ -134,17 +123,17 @@ abstract class PostType extends Base implements IPostTypes
             "map_meta_cap" => true,
             "hierarchical" => false,
             "rewrite" => [
-                "slug" => strlen($instance->getSlug()) > 0
-                    ? $instance->getSlug()
-                    : $instance->getName(),
+                "slug" => strlen($instance::$slug) > 0
+                    ? $instance::$slug
+                    : $instance::$name,
                 "with_front" => true
             ],
             "query_var" => true,
-            "menu_icon" => $instance->getIcon(),
-            "supports" => $instance->getSupports(),
+            "menu_icon" => $instance::$icon,
+            "supports" => $instance::$supports,
             "show_in_graphql" => false,
         ];
 
-        register_post_type($instance->getName(), array_merge($args, array_filter($instance->getArgs())));
+        register_post_type($instance::$name, array_merge($args, array_filter($instance::$args)));
     }
 }
