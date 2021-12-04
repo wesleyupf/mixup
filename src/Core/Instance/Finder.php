@@ -24,11 +24,9 @@ abstract class Finder
         $namespace_dir = self::getNamespaceDirectory($namespace);
 
         if ($namespace_dir) {
-            $files = scandir($namespace_dir);
-
             return array_map(function ($file) use ($namespace) {
                 return $namespace . self::SEPARATOR . str_replace('.php', '', $file);
-            }, $files);
+            }, scandir($namespace_dir));
         }
 
         return [];
@@ -51,24 +49,41 @@ abstract class Finder
      */
     private static function getNamespaceDirectory($namespace): string
     {
-        $namespaces = self::getDefinedNamespaces();
+        $undefinedFragments = [];
 
-        if ($namespaces) {
+        if (self::getDefinedNamespaces()) {
             $fragments = explode(self::SEPARATOR, $namespace);
-            $undefinedFragments = [];
 
             while ($fragments) {
-                $possibleNamespace = implode(self::SEPARATOR, $fragments) . self::SEPARATOR;
+                $path = self::getPathInFragments($fragments, $undefinedFragments);
 
-                if (array_key_exists($possibleNamespace, $namespaces)) {
-                    $space = self::$base_directory . $namespaces[$possibleNamespace];
-                    $fragment = implode('/', $undefinedFragments);
-
-                    return realpath($space . $fragment);
+                if ($path) {
+                    return $path;
                 }
 
                 array_unshift($undefinedFragments, array_pop($fragments));
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $fragments
+     * @param array $undefinedFragments
+     * @return false|string
+     */
+    private static function getPathInFragments(&$fragments, array &$undefinedFragments)
+    {
+        $namespaces = self::getDefinedNamespaces();
+
+        $possibleNamespace = implode(self::SEPARATOR, $fragments) . self::SEPARATOR;
+
+        if (array_key_exists($possibleNamespace, $namespaces)) {
+            $space = self::$base_directory . $namespaces[$possibleNamespace];
+            $fragment = implode('/', $undefinedFragments);
+
+            return realpath($space . $fragment);
         }
 
         return false;
