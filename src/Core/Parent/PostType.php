@@ -10,6 +10,7 @@ abstract class PostType extends Base implements IPostTypes
 {
     use GroupingType;
 
+    public static string $cp_name = '';
     protected string $icon = '';
     protected array $supports = ["title", "thumbnail"];
 

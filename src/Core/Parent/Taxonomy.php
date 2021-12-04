@@ -10,6 +10,7 @@ abstract class Taxonomy extends Base implements ITaxonomy
 {
     use GroupingType;
 
+    public static string $tx_name = '';
     protected array $postTypes = [];
 
     public function getPostTypes(): array
