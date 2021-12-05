@@ -46,20 +46,6 @@ abstract class Create
         return array_filter($class_instances);
     }
 
-    protected static function getParamsClass($reflection): array
-    {
-        $class_child_params = [];
-        $constructor = $reflection->getConstructor();
-
-        // Define parameters
-        foreach ($constructor->getParameters() as $param) {
-            $class_child_params[] = self::$params[$param->name] ?? null;
-        }
-
-        // Filter
-        return array_filter($class_child_params);
-    }
-
     /**
      * @throws ReflectionException
      */
@@ -79,6 +65,24 @@ abstract class Create
         foreach ($classes as $class) {
             self::execute($class);
         }
+    }
+
+    /**
+     * @param $reflection
+     * @return array
+     */
+    protected static function getParamsClass($reflection): array
+    {
+        $class_child_params = [];
+        $constructor = $reflection->getConstructor();
+
+        // Define parameters
+        foreach ($constructor->getParameters() as $param) {
+            $class_child_params[] = self::$params[$param->name] ?? null;
+        }
+
+        // Filter
+        return array_filter($class_child_params);
     }
 
     /**
