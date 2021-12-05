@@ -21,19 +21,15 @@ abstract class Create
 
         if (is_subclass_of($class, self::$parent_class)) {
             if (call_user_func([$class, 'isSelfInstance'])) {
-                // Get info class
                 $reflection = new ReflectionClass($class);
 
-                // Return in abstract
                 if ($reflection->isAbstract()) {
                     return [];
                 }
 
-                // Filter
                 $const_params = $reflection->getConstructor()->getParameters();
                 $class_child_params = self::getParamsClass($reflection);
 
-                // Check parameters
                 if (count($const_params) <= count($class_child_params)) {
                     $instance = new $class(...$class_child_params);
                     $class_instances[] = $instance->isSelfInstance() ? $instance : [];
@@ -76,12 +72,10 @@ abstract class Create
         $class_child_params = [];
         $constructor = $reflection->getConstructor();
 
-        // Define parameters
         foreach ($constructor->getParameters() as $param) {
             $class_child_params[] = self::$params[$param->name] ?? null;
         }
 
-        // Filter
         return array_filter($class_child_params);
     }
 
@@ -95,18 +89,15 @@ abstract class Create
      */
     public static function run(string $namespace, string $parent_class, array $params = [], string $dir = ''): bool
     {
-        // Seta valores
         self::$params = $params;
         self::$parent_class = $parent_class;
 
-        // Pega todos os namespaces
         $namespaces = Finder::getClassesInNamespace($namespace, $dir);
 
         if (!$namespaces) {
             return false;
         }
 
-        // Pega todas as classes
         foreach ($namespaces as $namespace) {
             self::execute($namespace);
             self::getChildClasses($namespace);

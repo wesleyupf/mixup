@@ -4,7 +4,6 @@ namespace UPFlex\MixUp\Core\Instance;
 
 abstract class Finder
 {
-    // Directory that contains composer.json
     const APP_ROOT = __DIR__ . '/../../../../../';
     const SEPARATOR = '\\';
 
