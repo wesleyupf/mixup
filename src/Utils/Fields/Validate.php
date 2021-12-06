@@ -74,6 +74,10 @@ trait Validate
 
         if ($fields) {
             foreach ($fields as $key => $requires) {
+                if (empty($key)) {
+                    continue;
+                }
+
                 $field = is_string($requires) ? $requires : '';
                 $response = self::checkExpecteds($values[$key] ?? null, $field, $key);
 
