@@ -74,7 +74,7 @@ trait Validate
 
         if ($fields) {
             foreach ($fields as $key => $requires) {
-                if (empty($key)) {
+                if (!is_string($key)) {
                     continue;
                 }
 

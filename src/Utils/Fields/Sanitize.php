@@ -38,7 +38,9 @@ trait Sanitize
                 ? $allow_methods[$request]
                 : $allow_methods['post'];
 
-            $value = $method[$key] ?? null;
+            $value = !is_string($key) ? $method[$expected] ?? null : $method[$key] ?? null;
+            $key = !is_string($key) ? $expected : $key;
+
             $data[$key] = $value ? self::sanitizeTypeInput($value, $expected, $key) : null;
         }
 
