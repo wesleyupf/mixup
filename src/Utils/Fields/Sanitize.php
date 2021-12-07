@@ -46,11 +46,6 @@ trait Sanitize
     }
 
     /**
-     * @return string[][]
-     */
-    abstract protected static function setFields(): array;
-
-    /**
      * @param string $request
      * @return array
      */
@@ -91,4 +86,9 @@ trait Sanitize
 
         return $value;
     }
+
+    /**
+     * @return string[][]
+     */
+    abstract protected static function setFields(): array;
 }
