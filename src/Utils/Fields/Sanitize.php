@@ -88,7 +88,7 @@ trait Sanitize
     }
 
     /**
-     * @return string[][]
+     * @return array
      */
     abstract protected static function setFields(): array;
 }
