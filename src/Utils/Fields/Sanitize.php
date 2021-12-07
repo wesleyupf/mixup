@@ -9,6 +9,34 @@ trait Sanitize
     use Response;
 
     /**
+     * @param $value
+     * @param $args
+     * @param string $key
+     * @return array|mixed|string
+     */
+    protected static function eachValues($value, $args, string $key = '')
+    {
+        if (is_array($value)) {
+            if (count($value) <= 0) {
+                return '';
+            }
+
+            foreach ($value as $key => $item) {
+                $value[$key] = self::sanitizeTypeInput($item, $args, $key);
+            }
+        } else {
+            if (strlen(trim((string)$value)) <= 0) {
+                return '';
+            }
+
+            $value = self::sanitizeTypeInput($value, $args, $key);
+        }
+
+
+        return $value;
+    }
+
+    /**
      * @return array
      */
     protected static function getFields(): array
@@ -41,24 +69,20 @@ trait Sanitize
             $value = !is_string($key) ? $method[$expected] ?? null : $method[$key] ?? null;
             $key = !is_string($key) ? $expected : $key;
 
-            $data[$key] = $value ? self::sanitizeTypeInput($value, $expected, $key) : null;
+            $data[$key] = $value ? self::eachValues($value, $expected, $key) : null;
         }
 
         return array_filter($data);
     }
 
     /**
-     * @param string $value
+     * @param $value
      * @param $args
      * @param string $key
      * @return string
      */
-    protected static function sanitizeTypeInput(string $value, $args, string $key = ''): string
+    protected static function sanitizeTypeInput($value, $args, string $key = ''): string
     {
-        if (strlen(trim($value)) <= 0) {
-            return '';
-        }
-
         if (strpos($args, 'email') !== false || strpos($key, 'email') !== false) {
             $value = sanitize_email($value);
         } elseif (strpos($args, 'password') === false) {
