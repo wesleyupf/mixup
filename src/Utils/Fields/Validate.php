@@ -2,8 +2,11 @@
 
 namespace UPFlex\MixUp\Utils\Fields;
 
+use UPFlex\MixUp\Utils\Response;
+
 trait Validate
 {
+    use Response;
     use Sanitize;
 
     protected static array $counters = [

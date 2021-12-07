@@ -2,12 +2,8 @@
 
 namespace UPFlex\MixUp\Utils\Fields;
 
-use UPFlex\MixUp\Utils\Response;
-
 trait Sanitize
 {
-    use Response;
-
     /**
      * @param $value
      * @param $args
