@@ -2,7 +2,7 @@
 
 namespace UPFlex\MixUp\Core\Interfaces;
 
-interface ITaxonomy
+interface IParent
 {
     public static function register(): void;
 }

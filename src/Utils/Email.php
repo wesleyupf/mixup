@@ -2,8 +2,6 @@
 
 namespace UPFlex\MixUp\Utils;
 
-use UPFlex\MixUp\Utils\Response;
-
 trait Email
 {
     use Response;
