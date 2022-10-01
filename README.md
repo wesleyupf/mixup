@@ -165,8 +165,6 @@ Segue abaixo uma pequena lista de exemplos de uso:
 >    }
 >    ```
 
-> **Retorno de informações para o usuário**:
-
 > **Shortcode**: criação de um novo shortcode.
 >    ```
 >    <?php
@@ -213,8 +211,6 @@ Segue abaixo uma pequena lista de exemplos de uso:
 >        }
 >    }
 >    ```
-
-> **Template no plugin**:
 
 > **Validação de campos**: validação e higienização dos parâmetros GET / POST:
 >    ```
