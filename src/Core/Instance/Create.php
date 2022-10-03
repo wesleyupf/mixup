@@ -34,7 +34,7 @@ abstract class Create
                     $instance = new $class(...$class_child_params);
                     $class_instances[] = $instance->isSelfInstance() ? $instance : [];
                 } elseif (defined('WP_DEBUG') && true === WP_DEBUG) {
-                    error_log(sprintf('%s %s', __('Parameters were not set correctly. Class:'), $class));
+                    error_log(sprintf('%s %s', __('Os parâmetros não foram definidos corretamente. Classe: ', 'up-mixup'), $class));
                 }
             }
         }

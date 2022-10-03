@@ -38,9 +38,9 @@ trait TemplateParts
         ], $options);
 
         if (substr(self::$folder, -1) === '/') {
-            $folder = self::$folder;
+            $folder = substr(self::$folder, 0, -1);
         } else {
-            $folder = sprintf('%s/', self::$folder);
+            $folder = self::$folder;
         }
 
         $template_dir = sprintf('%s/', $folder);

@@ -5,6 +5,40 @@ namespace UPFlex\MixUp\Utils\Fields;
 trait Sanitize
 {
     /**
+     * @param string $request
+     * @return array
+     */
+    protected static function sanitizeFields(string $request = 'post'): array
+    {
+        $allow_methods = ['get' => $_GET, 'post' => $_POST];
+
+        $fields = self::getFields();
+        $data = [];
+
+        foreach ($fields as $key => $expected) {
+            $method = array_key_exists($request, $allow_methods)
+                ? $allow_methods[$request]
+                : $allow_methods['post'];
+
+            $value = !is_string($key) ? ($method[$expected] ?? null) : ($method[$key] ?? null);
+            $key = !is_string($key) ? $expected : $key;
+
+            $data[$key] = $value ? self::eachValues($value, $expected, $key) : null;
+        }
+
+        return array_filter($data);
+    }
+
+    /**
+     * @return array
+     */
+    protected static function getFields(): array
+    {
+        $class = get_called_class();
+        return call_user_func([$class, 'setFields']);
+    }
+
+    /**
      * @param $value
      * @param $args
      * @param string $key
@@ -30,40 +64,6 @@ trait Sanitize
 
 
         return $value;
-    }
-
-    /**
-     * @return array
-     */
-    protected static function getFields(): array
-    {
-        $class = get_called_class();
-        return call_user_func([$class, 'setFields']);
-    }
-
-    /**
-     * @param string $request
-     * @return array
-     */
-    protected static function sanitizeFields(string $request = 'post'): array
-    {
-        $allow_methods = ['get' => $_GET, 'post' => $_POST];
-
-        $fields = self::getFields();
-        $data = [];
-
-        foreach ($fields as $key => $expected) {
-            $method = array_key_exists($request, $allow_methods)
-                ? $allow_methods[$request]
-                : $allow_methods['post'];
-
-            $value = !is_string($key) ? $method[$expected] ?? null : $method[$key] ?? null;
-            $key = !is_string($key) ? $expected : $key;
-
-            $data[$key] = $value ? self::eachValues($value, $expected, $key) : null;
-        }
-
-        return array_filter($data);
     }
 
     /**

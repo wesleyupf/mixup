@@ -14,21 +14,13 @@ trait Response
     protected static function getResponse(): array
     {
         if (!self::$response) {
-            self::$response = [
+            self::setResponse([
                 'success' => self::$success,
                 'message' => self::$message,
-            ];
+            ]);
         }
 
         return self::$response;
-    }
-
-    /**
-     * @param string $message
-     */
-    protected static function setMessage(string $message): void
-    {
-        self::$message = $message;
     }
 
     /**
@@ -37,5 +29,13 @@ trait Response
     protected static function setResponse(array $response): void
     {
         self::$response = $response;
+    }
+
+    /**
+     * @param string $message
+     */
+    protected static function setMessage(string $message): void
+    {
+        self::$response['message'] = self::$message = $message;
     }
 }

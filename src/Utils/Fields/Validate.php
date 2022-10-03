@@ -33,30 +33,53 @@ trait Validate
         'string' => 'is_string',
     ];
 
-    protected static function checkExpecteds($value, string $expected, $field = ''): array
+    /**
+     * @return array|bool
+     */
+    protected static function getFieldsValidated($request = 'post')
+    {
+        $fields = static::getFields();
+        $values = self::sanitizeFields($request);
+        self::$response = [];
+
+        if ($fields) {
+            foreach ($fields as $key => $requires) {
+                if (!is_string($key)) {
+                    continue;
+                }
+
+                $expected = is_string($requires) ? $requires : '';
+                $response = self::checkExpected(($values[$key] ?? null), $expected, $key);
+
+                if (!$response['success']) {
+                    return $response;
+                }
+            }
+
+            return $values;
+        }
+
+        return false;
+    }
+
+    protected static function checkExpected($value, string $expected, $field = ''): array
     {
         foreach (explode('|', $expected) as $item) {
             [$type] = $item = explode(':', $item, 2);
 
             $type = static::$validators[$type] ?? 'string';
 
-            if (!static::$validators[$type]($value)) {
-                self::setalerts($field, $item[0]);
-
-                continue;
-            }
-
             if (isset($item[1])) {
                 $length = $value;
 
                 if (isset(static::$counters[$type])) {
-                    $length = static::$counters[$type]($value);
+                    $length = static::$counters[$type]((string)$value);
                 }
 
                 $range = explode(':', $item[1]);
 
                 if (($range[0] === '' || ($item[0] === 'max' ? $length >= $range[0] : $length < $range[0]))) {
-                    self::setalerts($field, $item[0]);
+                    self::setAlerts($field, $item[0]);
                     continue;
                 }
             }
@@ -68,41 +91,11 @@ trait Validate
     }
 
     /**
-     * @return array|bool
-     */
-    protected static function getFieldsValidated($request = 'post')
-    {
-        $fields = static::getFields();
-        $values = self::sanitizeFields($request);
-
-        if ($fields) {
-            foreach ($fields as $key => $requires) {
-                if (!is_string($key)) {
-                    continue;
-                }
-
-                $field = is_string($requires) ? $requires : '';
-                $response = self::checkExpecteds($values[$key] ?? null, $field, $key);
-
-                if (!$response['success']) {
-                    return $response;
-                } elseif (isset($response['alerts'])) {
-                    $values['alerts'][$key] = $response['alerts'] ?? null;
-                }
-            }
-
-            return $values;
-        }
-
-        return false;
-    }
-
-    /**
      * @param $field
      * @param $item
      * @return void
      */
-    protected static function setalerts($field, $item): void
+    protected static function setAlerts($field, $item): void
     {
         self::$response['alerts'][] = [
             'key' => $field,

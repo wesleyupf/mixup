@@ -3,10 +3,10 @@
 namespace UPFlex\MixUp\Core\Parent;
 
 use UPFlex\MixUp\Core\Base;
-use UPFlex\MixUp\Core\Interfaces\ITaxonomy;
+use UPFlex\MixUp\Core\Interfaces\IParent;
 use UPFlex\MixUp\Utils\GroupingType;
 
-abstract class Taxonomy extends Base implements ITaxonomy
+abstract class Taxonomy extends Base implements IParent
 {
     use GroupingType;
 
